@@ -13,7 +13,9 @@
         maxlength="5"
         style="width: 200px; margin-right: 20px"
       ></el-input
-      ><el-button type="primary" @click="addScore()">确认</el-button>
+      ><el-button type="primary" @click="debounceHandlerAddScore()"
+        >确认</el-button
+      >
     </div>
     <div id="main">
       <div ref="eChart" style="width: 90%; height: 600px"></div>
@@ -24,6 +26,7 @@
 <script>
 import * as echarts from "echarts";
 import { getDate } from "@/utils/getDate";
+import _ from "lodash";
 export default {
   name: "scoreEchart",
   data() {
@@ -117,8 +120,8 @@ export default {
       // 绘制图表
       this.myChart.setOption(this.option);
     },
-    // 添加分数
-    async addScore() {
+    //防抖添加分数
+    debounceHandlerAddScore: _.debounce(async function () {
       let date = getDate(Date.now());
       let data = { date: date, score: this.score, hero: this.hero };
       // 发送时间数据
@@ -126,13 +129,18 @@ export default {
       if (result.data === "ok" && result.status === 200) {
         this.success();
         //清空输入框
-        this.score = 0;
+        this.score = null;
         this.hero = "";
         // 获取最新分数
         this.getScore();
       } else {
         this.warning();
       }
+      getDate();
+    }, 1000),
+    // 添加分数
+    addScore() {
+      this.debounceHandlerAddScore();
     },
     success() {
       this.$message({
@@ -174,10 +182,10 @@ export default {
             type: "category",
             data: date,
           },
-           yAxis: {
-          min: this.yMin, // 设置最小值
-          max: this.yMax, // 设置最大值
-        },
+          yAxis: {
+            min: this.yMin, // 设置最小值
+            max: this.yMax, // 设置最大值
+          },
           series: [
             {
               data: score,
