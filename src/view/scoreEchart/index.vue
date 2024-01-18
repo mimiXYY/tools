@@ -35,7 +35,7 @@ export default {
       hero: "",
       yMin: "0",
       yMax: "4000",
-      imgUrl: require("@/assets/dota2.jpg"),
+      imgUrl: require("@/assets/img/dota2.jpg"),
       option: {
         //工具
         toolbox: {

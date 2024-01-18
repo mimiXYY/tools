@@ -4,13 +4,13 @@ Vue.use(Router)
 const constantRoutes = [
     {
         path: '/',
-        redirect: '/navHome',
-        component: () => import('@/view/navHome/index'),
+        redirect: '/home',
+        component: () => import('@/view/home/index'),
     },
     {
-        path: '/navHome',
-        name: 'navHome',
-        component: () => import('@/view/navHome/index')
+        path: '/home',
+        name: 'home',
+        component: () => import('@/view/home/index')
     },
     {
         path: '/scoreEchart',

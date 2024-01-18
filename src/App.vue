@@ -1,36 +1,49 @@
 <template>
   <div id="app">
-    <navBar class="nav"></navBar>
-    <div class="content"><router-view></router-view></div>
+    <el-container>
+      <el-header>
+        <el-button type="primary" @click="test()">测试</el-button>
+        Header</el-header
+      >
+      <el-container>
+        <el-aside width="auto"><sideBar /></el-aside>
+        <el-main><router-view></router-view></el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
-<script>
-import navBar from "@/components/navBar";
+<script >
+import sideBar from "@/components/sideBar";
 export default {
   name: "App",
-  components: {
-    navBar,
+  components: { sideBar },
+  methods: {
+    test() {
+      console.log(this.$route);
+    },
   },
 };
 </script>
 
-<style>
-.content {
-  position: relative;
-  top: 60px;
-  left: 250px;
-  width: 85%;
-  padding: auto;
+<style scoped>
+.el-header {
+  background-color: #b3c0d1;
+  color: #333;
+  text-align: center;
+  line-height: 60px;
 }
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 175px;
-  background: #2c2e2f;
-  z-index: 100;
-  border-right: 1px solid #cccccc;
+
+.el-aside {
+  background-color: #d3dce6;
+  color: #333;
+  height: calc(100vh - 60px);
+}
+
+.el-main {
+  background-color: #e9eef3;
+  color: #333;
+  text-align: center;
+  height: calc(100vh - 60px);
 }
 </style>
