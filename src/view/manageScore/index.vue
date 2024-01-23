@@ -68,7 +68,7 @@ export default {
       if (result.status === 200) {
         let date = result.data.date.trim().split(",");
         let score = result.data.score.trim().split(",");
-        for (let index = 0; index < date.length; index++) {
+        for (let index = 0; index < 12; index++) {
           const newData = {
             date: date[index],
             hero: "喜羊羊",

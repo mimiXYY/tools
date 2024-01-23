@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import './assets/css/reset.css';//引入全局样式
 import API from '@/api';
+import store from "@/store/index";
 import router from './router'; import {
   Button, Input, Message, Table,
   TableColumn, Container, Header, Aside, Main, Menu, MenuItem, Submenu
@@ -23,4 +24,5 @@ Vue.config.productionTip = false
 new Vue({
   render: h => h(App),
   router,
+  store
 }).$mount('#app')

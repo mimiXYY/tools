@@ -5,7 +5,7 @@
       :default-active="$route.path"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
-      style="height: calc(100vh - 60px)"
+      style="height: 100vh; border: 0px"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
@@ -19,8 +19,16 @@
           <img src="@/assets/img/dota2.jpg" class="image" />
           <span>&nbsp;&nbsp;DOTA</span>
         </template>
-        <el-menu-item index="/scoreEchart">DOTA分数</el-menu-item>
-        <el-menu-item index="/manageScore">DOTA管理</el-menu-item>
+        <el-menu-item-group
+          ><el-menu-item index="/scoreEchart"
+            >DOTA分数</el-menu-item
+          ></el-menu-item-group
+        >
+        <el-menu-item-group
+          ><el-menu-item index="/manageScore"
+            >DOTA管理</el-menu-item
+          ></el-menu-item-group
+        >
       </el-submenu>
       <el-menu-item index="2">
         <img
@@ -45,6 +53,13 @@ export default {
     return {
       isCollapse: false,
     };
+  },
+  watch: {
+    "$store.state.app.opened": {
+      handler(newValue) {
+        this.isCollapse = newValue; //控制侧边导航栏开关
+      },
+    },
   },
 };
 </script>
