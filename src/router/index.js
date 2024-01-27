@@ -22,6 +22,11 @@ const constantRoutes = [
         name: 'manageScore',
         component: () => import('@/view/manageScore/index')
     },
+    {
+        path: '/YuGiOh',
+        name: 'YuGiOh',
+        component: () => import('@/view/YuGiOh/index')
+    },
 
 ]
 const router = new Router({ mode: 'history', routes: constantRoutes })

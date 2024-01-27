@@ -1,10 +1,10 @@
 <template>
-  <div>导航首页</div>
+  <div><div class="me"></div></div>
 </template>
 
 <script>
 export default {
-  name: "navHome",
+  name: "deckView",
 };
 </script>
 

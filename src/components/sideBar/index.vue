@@ -30,7 +30,7 @@
           ></el-menu-item-group
         >
       </el-submenu>
-      <el-menu-item index="2">
+      <el-menu-item index="/YuGiOh">
         <img
           src="@/assets/img/Yu-Gi-Oh.png"
           class="image"

@@ -43,8 +43,6 @@ export default {
 
 <style scoped>
 .navbar {
-  width: 100%;
-  height: 100%;
   padding: 0px 20px;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
@@ -57,12 +55,12 @@ export default {
 .el-aside {
   background-color: #d3dce6;
   color: #333;
-  height: 100vh;
+  height: 100%;
 }
 
 .el-main {
   color: #333;
   text-align: center;
-  height: calc(100vh-60px);
+  height: 100%;
 }
 </style>

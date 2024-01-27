@@ -206,7 +206,6 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 600px;
 }
 .container {
   display: flex;
