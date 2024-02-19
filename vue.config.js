@@ -9,7 +9,14 @@ module.exports = defineConfig({
         // pathRewrite: {
         //   '^/api': '' // 重写请求
         // }
-      }
+      },
+      '/v0': {
+        target: `https://ygocdb.com/api`,
+        changeOrigin: true,
+        // pathRewrite: {
+        //   '^/api': '' // 重写请求
+        // }
+      },
     },
   },
   productionSourceMap: false

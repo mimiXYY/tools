@@ -14,30 +14,26 @@
         <i class="el-icon-s-home"></i>
         <span slot="title">首页</span>
       </el-menu-item>
-      <el-submenu index="1-2">
+      <el-submenu index="1">
         <template slot="title">
           <img src="@/assets/img/dota2.jpg" class="image" />
           <span>&nbsp;&nbsp;DOTA</span>
         </template>
-        <el-menu-item-group
-          ><el-menu-item index="/scoreEchart"
-            >DOTA分数</el-menu-item
-          ></el-menu-item-group
-        >
-        <el-menu-item-group
-          ><el-menu-item index="/manageScore"
-            >DOTA管理</el-menu-item
-          ></el-menu-item-group
-        >
+        <el-menu-item index="/scoreEchart">DOTA分数</el-menu-item>
+        <el-menu-item index="/manageScore">DOTA管理</el-menu-item>
       </el-submenu>
-      <el-menu-item index="/YuGiOh">
-        <img
-          src="@/assets/img/Yu-Gi-Oh.png"
-          class="image"
-          style="width: 18px; height: 23px"
-        />
-        <span slot="title">&nbsp;&nbsp;Yu-Gi-Oh!</span>
-      </el-menu-item>
+      <el-submenu index="2">
+        <template slot="title">
+          <img
+            src="@/assets/img/Yu-Gi-Oh.png"
+            class="image"
+            style="width: 18px; height: 23px"
+          />
+          <span>&nbsp;&nbsp;Yu-Gi-Oh!</span>
+        </template>
+        <el-menu-item index="/YuGiOh">决斗</el-menu-item>
+        <el-menu-item index="/cardPairing">组卡</el-menu-item>
+      </el-submenu>
       <el-menu-item index="3">
         <i class="el-icon-document"></i>
         <span slot="title">导航三</span>

@@ -27,6 +27,11 @@ const constantRoutes = [
         name: 'YuGiOh',
         component: () => import('@/view/YuGiOh/index')
     },
+    {
+        path: '/cardPairing',
+        name: 'cardPairing',
+        component: () => import('@/view/cardPairing/index')
+    },
 
 ]
 const router = new Router({ mode: 'history', routes: constantRoutes })

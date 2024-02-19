@@ -1,7 +1,8 @@
+<!--废弃组件-->
 <template>
   <div class="content" ref="nav">
     <header>
-      <div class="bar"  @click="goRouter()">导航栏</div>
+      <div class="bar" @click="goRouter()">导航栏</div>
     </header>
     <div
       class="item"
@@ -39,9 +40,9 @@ export default {
       }
     },
     // 改变导航栏
-    changeNav(){
+    changeNav() {
       // TODO 实现导航栏打开和关闭
-    }
+    },
   },
 };
 </script>
