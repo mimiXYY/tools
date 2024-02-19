@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { Message } from 'element-ui'
 const service = axios.create({
-    timeout: 5000,
+    timeout: 50000,
     BASE_URL: '/api'
 })
 //TODO根据需求配置网络请求
@@ -23,4 +23,9 @@ service.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+//并发添加到service上
+service.all = axios.all
+//配合all使用,接受all的结果
+service.spread = axios.spread
+
 export default service

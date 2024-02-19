@@ -5,7 +5,7 @@ import API from '@/api';
 import store from "@/store/index";
 import router from './router'; import {
   Button, Input, Message, Table,
-  TableColumn, Container, Header, Aside, Main, Menu, MenuItem, Submenu
+  TableColumn, Container, Header, Aside, Main, Menu, MenuItem, Submenu, Drawer
 } from 'element-ui';
 Vue.component(Button.name, Button);
 Vue.component(Input.name, Input);
@@ -18,6 +18,7 @@ Vue.component(Main.name, Main);
 Vue.component(Menu.name, Menu);
 Vue.component(MenuItem.name, MenuItem);
 Vue.component(Submenu.name, Submenu);
+Vue.component(Drawer.name, Drawer);
 Vue.prototype.$message = Message;
 Vue.prototype.$api = API
 Vue.config.productionTip = false
