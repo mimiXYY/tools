@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { Message } from 'element-ui'
 const service = axios.create({
-    timeout: 50000,
+    timeout: 5000,
     BASE_URL: '/api'
 })
 //TODO根据需求配置网络请求

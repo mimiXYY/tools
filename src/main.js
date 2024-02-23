@@ -5,7 +5,7 @@ import API from '@/api';
 import store from "@/store/index";
 import router from './router'; import {
   Button, Input, Message, Table,
-  TableColumn, Container, Header, Aside, Main, Menu, MenuItem, Submenu, Drawer
+  TableColumn, Container, Header, Aside, Main, Menu, MenuItem, Submenu, Drawer, Select, Option
 } from 'element-ui';
 Vue.component(Button.name, Button);
 Vue.component(Input.name, Input);
@@ -19,6 +19,10 @@ Vue.component(Menu.name, Menu);
 Vue.component(MenuItem.name, MenuItem);
 Vue.component(Submenu.name, Submenu);
 Vue.component(Drawer.name, Drawer);
+Vue.component(Select.name, Select);
+Vue.component(Option.name, Option); 
+import VueClipBoard from 'vue-clipboard2'
+Vue.use(VueClipBoard)
 Vue.prototype.$message = Message;
 Vue.prototype.$api = API
 Vue.config.productionTip = false

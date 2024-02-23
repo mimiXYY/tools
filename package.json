@@ -14,6 +14,7 @@
     "element-ui": "^2.15.14",
     "lodash": "^4.17.21",
     "vue": "^2.6.14",
+    "vue-clipboard2": "^0.3.3",
     "vue-router": "^3.0.6",
     "vuedraggable": "^2.24.3",
     "vuex": "^3.2.0"

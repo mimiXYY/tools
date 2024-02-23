@@ -53,13 +53,12 @@ export default {
 }
 
 .el-aside {
-  background-color: #d3dce6;
+  background-color: #545c64;
   color: #333;
-  height: 100%;
+  height: 100vh;
 }
 
 .el-main {
   color: #333;
-  height: 100%;
 }
 </style>

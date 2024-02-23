@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="side">
     <el-menu
       :router="true"
       :default-active="$route.path"
       class="el-menu-vertical-demo"
       :collapse="isCollapse"
-      style="height: 100vh; border: 0px"
+      style="height: 100; border: 0px"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
@@ -61,6 +61,8 @@ export default {
 </script>
 
 <style scoped>
+.side {
+}
 .image {
   width: 18px;
   height: 18px;
