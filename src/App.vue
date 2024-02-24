@@ -58,10 +58,10 @@ export default {
 .el-aside {
   background-color: #545c64;
   color: #333;
-  height: 100vh;
 }
 
 .el-main {
   color: #333;
+  height: calc(100vh - 60px);
 }
 </style>

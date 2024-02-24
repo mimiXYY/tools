@@ -69,6 +69,7 @@
               v-model="mainDeck"
               :group="{ name: 'site' }"
               animation="300"
+              @add="moveCardAudio()"
             >
               <transition-group class="cardGroup">
                 <div
@@ -101,6 +102,7 @@
               v-model="extraDeck"
               :group="{ name: 'site' }"
               animation="300"
+              @add="moveCardAudio()"
             >
               <transition-group class="cardGroup">
                 <div
@@ -131,6 +133,7 @@
       </div>
       <div class="searchList" ref="searchList">
         <draggable
+          :scroll="true"
           v-model="searchList"
           :group="{ name: 'site', pull: 'clone' }"
           animation="300"
@@ -176,6 +179,7 @@
 <script>
 import deckNameList from "@/utils/deckName.js";
 import draggable from "vuedraggable";
+import Audio from "@/utils/audio";
 export default {
   name: "cardPairing",
   components: {
@@ -183,6 +187,12 @@ export default {
   },
   data() {
     return {
+      src: [
+        { name: "shuffle.ogg", howl: null },
+        { name: "SE_DECK_PLUS.wav", howl: null },
+        { name: "SE_MENU_DECIDE.wav", howl: null },
+      ], //音频资源
+      audio: null, //音频对象  0 卡组加入的声音  1 移动卡片的声音 2 显示卡片的声音
       name: "英雄", //卡组名字
       disabled: true, //是否可以修改卡组名字
       drawer: false, //抽屉
@@ -207,8 +217,14 @@ export default {
   mounted() {
     //加载选择框的卡组列表
     this.getDeckList();
+    //创建音频
+    this.createSound();
   },
   methods: {
+    //创建音频
+    createSound() {
+      this.audio = new Audio(this.src);
+    },
     //搜索卡片
     async searchCard() {
       if (this.input == "") {
@@ -223,6 +239,8 @@ export default {
     //获取点击的卡片信息
     getCardInfo(card) {
       this.cardInfo = card;
+      //显示卡片声音
+      this.audio.play(2);
     },
     //打开抽屉 flag 0为导入 1为导出
     openDrawer(flag) {
@@ -279,7 +297,7 @@ export default {
         }
       );
     },
-    // 分解YDK
+    // 分解YDK添加卡组
     async addYDKDeck() {
       let YDK = this.textYDK;
       if (YDK === "") {
@@ -292,7 +310,6 @@ export default {
       let mainDeck;
       let extraDeck;
       let deck = YDK.split(main)[1];
-      console.log(YDK, deck);
       if (deck.length !== 0) {
         mainDeck = deck.split(extra)[0];
         mainDeck = mainDeck.split("\n");
@@ -318,6 +335,8 @@ export default {
               }
             });
             this.mainDeck = cardList;
+            //添加卡组的声音
+            this.audio.play(0);
           })
         );
       }
@@ -333,6 +352,7 @@ export default {
           })
         );
       }
+
       //关闭抽屉
       this.drawer = false;
     },
@@ -350,10 +370,15 @@ export default {
         }
       });
     },
+    //移动卡片的声音
+    moveCardAudio() {
+      this.audio.play(1);
+    },
     // 当别的数组向searchList拖入数据完成时触发
     add(e) {
       //删除被拖拽的元素
       this.searchList.splice(e.newIndex, 1);
+      this.moveCardAudio();
     },
     //修改卡组名字
     changeName() {
@@ -375,8 +400,7 @@ export default {
   word-wrap: break-word;
   white-space: pre-wrap;
   box-sizing: border-box;
-  height: calc(100vh - 100px);
-  overflow: hidden;
+  height: 100%;
   .left {
     width: 20%;
     min-width: 234px;
@@ -449,28 +473,24 @@ export default {
               margin-left: 5px;
             }
           }
-          .deck {
-            min-height: 300px;
-            margin-top: 10px;
-            border-top: 1px solid #ddd;
-          }
         }
         .deck {
           min-height: 300px;
           margin-top: 10px;
           border-top: 1px solid #ddd;
-        }
-        .cardGroup {
-          display: flex;
-          align-content: flex-start;
-          flex-wrap: wrap;
-          min-height: 500px;
-          .card {
-            margin: 8px 0;
-            margin-right: 5px;
-            img {
-              width: 59px;
-              height: 86px;
+          .cardGroup {
+            margin-top: 8px;
+            display: flex;
+            align-content: flex-start;
+            flex-wrap: wrap;
+            min-height: 400px;
+            .card {
+              margin: 1px 0;
+              margin-right: 5px;
+              img {
+                width: 59px;
+                height: 86px;
+              }
             }
           }
         }
@@ -489,12 +509,13 @@ export default {
           margin-top: 10px;
           border-top: 1px solid #ddd;
           .cardGroup {
+            margin-top: 8px;
             display: flex;
             align-content: flex-start;
             flex-wrap: wrap;
             min-height: 150px;
             .card {
-              margin: 8px 0;
+              margin: 1px 0;
               margin-right: 5px;
               img {
                 width: 59px;
@@ -518,15 +539,14 @@ export default {
 
     .searchList {
       margin-top: 10px;
+      height: 720px;
       min-height: 300px;
-      height: calc(100% - 50px);
+      overflow-y: auto;
       .cardGroup {
         display: flex;
         align-content: flex-start;
         flex-wrap: wrap;
-        height: 720px;
-        min-height: 500px;
-        overflow-y: auto;
+        min-height: 200px;
         .card {
           margin-bottom: 6px;
           flex-grow: 1;

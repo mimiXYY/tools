@@ -1,0 +1,24 @@
+{
+	"result": [
+		{
+			"describe": "多个卡片声音",
+			"name": "shuffle.ogg"
+		},
+		{
+			"describe": "特殊召唤",
+			"name": "specialsummon2.wav"
+		},
+		{
+			"describe": "增加卡片",
+			"name": "SE_DECK_PLUS.wav"
+		},
+		{
+			"describe": "显示卡片",
+			"name": "SE_MENU_DECIDE.wav"
+		},
+		{
+			"describe": "未定义",
+			"name": "SE_CARD_MOVE_01.ogg"
+		}
+	]
+}
