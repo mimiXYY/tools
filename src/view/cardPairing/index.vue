@@ -374,12 +374,12 @@ export default {
   word-break: break-all;
   word-wrap: break-word;
   white-space: pre-wrap;
-  min-height: calc(100% - 30px);
-
+  box-sizing: border-box;
+  height: calc(100vh - 100px);
+  overflow: hidden;
   .left {
     width: 20%;
     min-width: 234px;
-    height: auto;
     margin-right: 10px;
     border: 1px solid #ddd;
     padding: 10px;
@@ -397,7 +397,7 @@ export default {
 
     .desc {
       display: block;
-      font-size: 18px;
+      font-size: 14px;
       .name {
         font-size: 22px;
         font-weight: bold;
