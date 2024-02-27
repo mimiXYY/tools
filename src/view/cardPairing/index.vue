@@ -51,6 +51,7 @@
                 v-model="value"
                 placeholder="请选择"
                 @change="changeDeck"
+                clearable
               >
                 <el-option
                   v-for="item in deckName"
@@ -299,11 +300,11 @@ export default {
       let deckList = "#created\n#main\n";
       let hr = "\n";
       this.mainDeck.map((item) => {
-        deckList = deckList + item.id + hr;
+        deckList = deckList + item + hr;
       });
       deckList = deckList + "#extra\n";
       this.extraDeck.map((item) => {
-        deckList = deckList + item.id + hr;
+        deckList = deckList + item + hr;
       });
       this.textYDK = deckList;
     },
@@ -411,7 +412,15 @@ export default {
       this.disabled = !this.disabled;
     },
   },
-  watch: {},
+  watch: {
+    //当选择框里被清空时，清空卡组
+    value(newVal) {
+      if (newVal === "") {
+        this.mainDeck = [];
+        this.extraDeck = [];
+      }
+    },
+  },
 };
 </script>
 
