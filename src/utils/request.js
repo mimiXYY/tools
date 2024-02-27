@@ -2,6 +2,7 @@ import axios from "axios";
 // import { Message } from 'element-ui'
 const service = axios.create({
     timeout: 5000,
+    headers: "Access-Control-Allow-Origin"
 })
 //TODO根据需求配置网络请求
 // 请求拦截器
