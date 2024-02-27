@@ -6,7 +6,7 @@ import store from "@/store/index";
 import router from './router'; import {
   Button, Input, Message, Table,
   TableColumn, Container, Header, Aside, Main, Menu, MenuItem, Submenu, Drawer, Select, Option, Avatar, Row, Image,
-  Col, Link
+  Col, Link, Statistic, Card, Skeleton, SkeletonItem, Switch
 } from 'element-ui';
 Vue.component(Button.name, Button);
 Vue.component(Input.name, Input);
@@ -27,6 +27,11 @@ Vue.component(Row.name, Row);
 Vue.component(Col.name, Col);
 Vue.component(Image.name, Image);
 Vue.component(Link.name, Link);
+Vue.component(Statistic.name, Statistic);
+Vue.component(Card.name, Card);
+Vue.component(Skeleton.name, Skeleton);
+Vue.component(SkeletonItem.name, SkeletonItem);
+Vue.component(Switch.name, Switch);
 import VueClipBoard from 'vue-clipboard2'
 Vue.use(VueClipBoard)
 Vue.prototype.$message = Message;

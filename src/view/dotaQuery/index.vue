@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="head">
-      <el-col :span="13"
+      <el-col :span="4"
         ><div class="search">
           <el-input
             v-model="input"
@@ -18,6 +18,69 @@
             ></el-button
           ></el-input></div
       ></el-col>
+      <el-col :span="3" class="heros">
+        <div>
+          <el-card shadow="hover" class="card">
+            <div class="heroCard">
+              <el-image
+                class="avatar"
+                style="width: 64px; height: 36px"
+                fil="fill"
+                :src="heroUrl(heros[0].id)"
+              ></el-image>
+              <div style="width: 100%; display: inline-block">
+                <el-statistic :title="`${heros[0].games}场`">
+                  <template slot="formatter">
+                    {{ ((heros[0].win * 100) / heros[0].games).toFixed(1) }}%
+                  </template></el-statistic
+                >
+              </div>
+            </div></el-card
+          >
+        </div>
+      </el-col>
+      <el-col :span="3" class="heros">
+        <div>
+          <el-card shadow="hover" class="card">
+            <div class="heroCard">
+              <el-image
+                class="avatar"
+                fil="fill"
+                style="width: 64px; height: 36px"
+                :src="heroUrl(heros[1].id)"
+              ></el-image>
+              <div style="width: 100%; display: inline-block">
+                <el-statistic :title="`${heros[1].games}场`">
+                  <template slot="formatter">
+                    {{ ((heros[1].win * 100) / heros[1].games).toFixed(1) }}%
+                  </template></el-statistic
+                >
+              </div>
+            </div></el-card
+          >
+        </div>
+      </el-col>
+      <el-col :span="3" class="heros">
+        <div>
+          <el-card shadow="hover" class="card">
+            <div class="heroCard">
+              <el-image
+                class="avatar"
+                fil="fill"
+                style="width: 64px; height: 36px"
+                :src="heroUrl(heros[2].id)"
+              ></el-image>
+              <div style="width: 100%; display: inline-block">
+                <el-statistic :title="`${heros[2].games}场`">
+                  <template slot="formatter">
+                    {{ ((heros[2].win * 100) / heros[2].games).toFixed(1) }}%
+                  </template></el-statistic
+                >
+              </div>
+            </div></el-card
+          >
+        </div>
+      </el-col>
       <el-col :span="7" class="user">
         <div class="avatar">
           <el-avatar shape="square" :size="80" :src="avatarUrl"></el-avatar>
@@ -47,10 +110,9 @@
         <template slot-scope="scope">
           <div class="hero">
             <el-image
+              fil="fill"
               style="width: 52px; height: 29px"
-              :src="`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${heroName(
-                scope.row.hero_id
-              )}.png`"
+              :src="heroUrl(scope.row.hero_id)"
             ></el-image>
             <el-link type="primary" :underline="false" class="name">{{
               heroName(scope.row.hero_id)
@@ -78,7 +140,7 @@
       <el-table-column label="游戏模式" width="width" align="center">
         <template slot-scope="scope"
           ><div>{{ getGameMode(scope.row.game_mode) }}</div>
-          <div>{{ rank }}[{{ rankStar }}]</div></template
+          <div>{{ rank }} {{ rankStar }}</div></template
         >
       </el-table-column>
       <el-table-column prop="duration" label="时长" width="150" align="center">
@@ -146,8 +208,15 @@ export default {
       avatarUrl:
         "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png", //user头像url
       rank_tier: null, //段位
-
       dotaMatches: [], //对局数据
+      cnNumber: ["一", "二", "三", "四", "五"],
+      heros: [
+        { id: null, games: null, win: null },
+        { id: null, games: null, win: null },
+        { id: null, games: null, win: null },
+      ], //游玩最多的3个英雄数据
+      flag: false, //数据加载完后，再显示数据
+      loading: false, //显示骨架屏
     };
   },
   computed: {
@@ -167,7 +236,7 @@ export default {
       return getRank(this.rank_tier);
     },
     rankStar() {
-      return getRankStar(this.rank_tier);
+      return this.cnNumber[getRankStar(this.rank_tier) - 1];
     },
   },
   beforeMount() {},
@@ -188,13 +257,22 @@ export default {
     },
     //获取英雄名字
     heroName(hero_id) {
+      if (hero_id === null && hero_id === undefined) return;
       let heroList = this.$store.state.dota.heroList;
       let hero = heroList.filter((hero) => {
         if (hero.id === hero_id) return hero;
       });
+      if (hero.length === 0) return;
       let name = hero[0].name;
       name = name.substring(14);
       return name;
+    },
+    //获取英雄头像图片
+    heroUrl(hero_id) {
+      let name = this.heroName(hero_id);
+      if (name === undefined) return;
+      let url = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${name}.png`;
+      return url;
     },
     //获取游戏模式
     getGameMode(game_mode) {
@@ -221,6 +299,24 @@ export default {
       }
       //获取最近比赛
       this.getRecentMatches();
+      //获取游玩过的英雄
+      this.getHeros();
+    },
+    //获取游玩过的英雄
+    async getHeros() {
+      let res = await this.$api.opendota.reqHeros(this.input);
+      if (res.status === 200) {
+        //取前三个次数最多游玩英雄
+        let heros = res.data.slice(0, 3);
+        heros.map((item, index) => {
+          let hero = {
+            id: item.hero_id,
+            games: item.games,
+            win: item.win,
+          };
+          this.heros.splice(index, 1, hero);
+        });
+      }
     },
     //获取最近比赛
     async getRecentMatches() {
@@ -239,7 +335,6 @@ export default {
     height: 100px;
   }
   .search {
-    width: 40%;
     line-height: 100px;
   }
   .user {
@@ -259,8 +354,21 @@ export default {
       left: 0;
     }
   }
+  .heros {
+    display: flex;
+    align-items: center;
+    .card {
+      width: 100%;
+      margin-left: 10px;
+      .heroCard {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
 }
 .tab {
+  margin-top: 20px;
   .hero {
     display: flex;
     justify-items: baseline;
