@@ -69,7 +69,7 @@
               v-model="mainDeck"
               :group="{ name: 'site' }"
               animation="300"
-              @add="moveCardAudio()"
+              @add="moveCardAudio"
             >
               <transition-group class="cardGroup">
                 <div
@@ -79,8 +79,7 @@
                   @click="getCardInfo(card)"
                 >
                   <img
-                    :src="`https://cdn.233.momobako.com/ygopro/pics/${card.id}.jpg`"
-                    alt="card.cn_name"
+                    :src="`https://cdn.233.momobako.com/ygopro/pics/${card}.jpg`"
                   /></div
               ></transition-group>
             </draggable>
@@ -112,8 +111,7 @@
                   @click="getCardInfo(card)"
                 >
                   <img
-                    :src="`https://cdn.233.momobako.com/ygopro/pics/${card.id}.jpg`"
-                    alt="card.cn_name"
+                    :src="`https://cdn.233.momobako.com/ygopro/pics/${card}.jpg`"
                   /></div
               ></transition-group>
             </draggable>
@@ -144,11 +142,10 @@
               class="card"
               v-for="(card, index) in searchList"
               :key="index"
-              @click="getCardInfo(card)"
+              @click="getCardInfo(card, 'search')"
             >
               <img
-                :src="`https://cdn.233.momobako.com/ygopro/pics/${card.id}.jpg`"
-                alt="card.cn_name"
+                :src="`https://cdn.233.momobako.com/ygopro/pics/${card}.jpg`"
               /></div
           ></transition-group>
         </draggable>
@@ -212,6 +209,7 @@ export default {
           types: "",
         },
       }, //卡牌信息
+      cardInfoList: [], //卡牌信息列表
     };
   },
   mounted() {
@@ -233,14 +231,43 @@ export default {
       }
       let res = await this.$api.card.reqCardInfo(this.input);
       if (res.status === 200) {
-        this.searchList = res.data.result;
+        res.data.result.forEach((item) => {
+          this.searchList.push(item.id);
+          this.cardInfoList.push({ id: item.id, cardInfo: item });
+        });
       }
     },
     //获取点击的卡片信息
-    getCardInfo(card) {
-      this.cardInfo = card;
+    async getCardInfo(card, str) {
       //显示卡片声音
       this.audio.play(2);
+      // cardInfoList 里有此卡的标识
+      let flag = false;
+      this.$message.info("正在获取卡片信息");
+      //总卡组查询有没有此卡，没有再请求
+      let cardInfoList = this.cardInfoList;
+      cardInfoList.forEach((item) => {
+        if (item.id === card) {
+          this.cardInfo = item.cardInfo;
+          flag = true;
+          return;
+        }
+      });
+      if (flag) return; //已经查询到此卡结束
+      //当数据时从search里来的  已经获得数据了
+      if (str === "search") {
+        this.cardInfo = card;
+        this.cardInfoList.push({ id: card.id, cardInfo: card }); //加入总卡组，下次查询先进总卡组查询
+        return;
+      }
+      let result = await this.$api.card.reqCardInfo(card);
+      if (result.status === 200) {
+        let res = result.data.result[0];
+        this.cardInfo = res;
+        this.cardInfoList.push({ id: card, cardInfo: res }); //加入总卡组，下次查询先进总卡组查询
+      } else {
+        this.$message.error("获取卡片信息失败");
+      }
     },
     //打开抽屉 flag 0为导入 1为导出
     openDrawer(flag) {
@@ -327,32 +354,31 @@ export default {
 
       this.$message.warning("正在导入");
       if (mainDeck !== undefined && mainDeck.length > 0) {
-        await this.$api.card.reqCardInfoAll(mainDeck).then(
-          this.$api.card.reqSpread((...res) => {
-            let cardList = res.map((item) => {
-              if (item.status === 200) {
-                return item.data.result[0];
-              }
-            });
-            this.mainDeck = cardList;
-            //添加卡组的声音
-            this.audio.play(0);
-          })
-        );
+        this.mainDeck = [];
+        mainDeck.forEach((item) => {
+          if (item.substring(0, 1) === "0") {
+            //当第一个字符串是0的时候删除第一个字符串0 然后再加入
+            let i = item.slice(1);
+            this.mainDeck.push(i);
+          } else {
+            this.mainDeck.push(item);
+          }
+        });
       }
       if (extraDeck !== undefined && extraDeck.length > 0) {
-        await this.$api.card.reqCardInfoAll(extraDeck).then(
-          this.$api.card.reqSpread((...res) => {
-            let cardList = res.map((item) => {
-              if (item.status === 200) {
-                return item.data.result[0];
-              }
-            });
-            this.extraDeck = cardList;
-          })
-        );
+        this.extraDeck = [];
+        extraDeck.forEach((item) => {
+          if (item.substring(0, 1) === "0") {
+            //当第一个字符串是0的时候删除第一个字符串0 然后再加入
+            let i = item.slice(1);
+            this.extraDeck.push(i);
+          } else {
+            this.extraDeck.push(item);
+          }
+        });
       }
-
+      //加入卡片声音
+      this.audio.play(0);
       //关闭抽屉
       this.drawer = false;
     },
@@ -400,7 +426,6 @@ export default {
   word-wrap: break-word;
   white-space: pre-wrap;
   box-sizing: border-box;
-  height: 100%;
   .left {
     width: 20%;
     min-width: 234px;

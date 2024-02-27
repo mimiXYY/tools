@@ -12,15 +12,20 @@ const constantRoutes = [
         name: 'home',
         component: () => import('@/view/home/index')
     },
+    // {
+    //     path: '/scoreEchart',
+    //     name: 'scoreEchart',
+    //     component: () => import('@/view/scoreEchart/index')
+    // },
+    // {
+    //     path: '/manageScore',
+    //     name: 'manageScore',
+    //     component: () => import('@/view/manageScore/index')
+    // },
     {
-        path: '/scoreEchart',
-        name: 'scoreEchart',
-        component: () => import('@/view/scoreEchart/index')
-    },
-    {
-        path: '/manageScore',
-        name: 'manageScore',
-        component: () => import('@/view/manageScore/index')
+        path: '/dotaQuery',
+        name: 'dotaQuery',
+        component: () => import('@/view/dotaQuery/index')
     },
     {
         path: '/YuGiOh',

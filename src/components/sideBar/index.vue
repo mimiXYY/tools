@@ -19,8 +19,9 @@
           <img src="@/assets/img/dota2.jpg" class="image" />
           <span>&nbsp;&nbsp;DOTA</span>
         </template>
-        <el-menu-item index="/scoreEchart">DOTA分数</el-menu-item>
-        <el-menu-item index="/manageScore">DOTA管理</el-menu-item>
+        <!-- <el-menu-item index="/scoreEchart">DOTA分数</el-menu-item>
+        <el-menu-item index="/manageScore">DOTA管理</el-menu-item> -->
+        <el-menu-item index="/DotaQuery">DOTA查询</el-menu-item>
       </el-submenu>
       <el-submenu index="2">
         <template slot="title">

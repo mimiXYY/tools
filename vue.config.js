@@ -3,15 +3,15 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     proxy: {
-      '/api': {
-        target: `http://192.168.2.10:9000`,
+      '//api.opendota.com': {
+        target: `https://api.opendota.com`, //openApiDota
         changeOrigin: true,
         // pathRewrite: {
-        //   '^/api': '' // 重写请求
+          // '^//api.opendota.com': '' // 重写请求
         // }
       },
       '/v0': {
-        target: `https://ygocdb.com/api`,
+        target: `https://ygocdb.com/api`, //游戏王
         changeOrigin: true,
         // pathRewrite: {
         //   '^/api': '' // 重写请求
