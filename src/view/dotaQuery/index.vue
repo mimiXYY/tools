@@ -2,7 +2,7 @@
   <div>
     <div v-if="loading">
       <el-row class="head">
-        <el-col :span="4"
+        <el-col :span="7"
           ><div class="search">
             <el-input
               v-model="input"
@@ -25,7 +25,7 @@
       <template>
         <div>
           <el-row class="head">
-            <el-col :span="4"
+            <el-col :span="7"
               ><div class="search">
                 <el-input
                   v-model="input"
@@ -111,7 +111,7 @@
                 >
               </div>
             </el-col>
-            <el-col :span="7" class="user">
+            <el-col :span="5" class="user">
               <div class="avatar">
                 <el-avatar
                   shape="square"
@@ -123,7 +123,7 @@
                 <strong>{{ personaName }}</strong>
               </div>
             </el-col>
-            <el-col :span="4" class="image"
+            <el-col :span="3" class="image"
               ><el-image
                 style="width: 90px; height: 90px"
                 :src="rankUrl"
@@ -151,9 +151,13 @@
                     style="width: 52px; height: 29px"
                     :src="heroUrl(scope.row.hero_id)"
                   ></el-image>
-                  <el-link type="primary" :underline="false" class="name">{{
-                    heroName(scope.row.hero_id)
-                  }}</el-link>
+                  <el-link
+                    @click="toLink(scope.row.match_id)"
+                    type="primary"
+                    :underline="false"
+                    class="name"
+                    >{{ heroName(scope.row.hero_id) }}</el-link
+                  >
                 </div>
               </template>
             </el-table-column>
@@ -161,13 +165,18 @@
               <template slot-scope="scope">
                 <div>
                   <el-link
+                    @click="toLink(scope.row.match_id)"
                     v-if="scope.row.radiant_win"
                     :underline="false"
                     style="color: #66bb6a"
                   >
                     比赛胜利
                   </el-link>
-                  <el-link :underline="false" v-else style="color: #ff4c4c"
+                  <el-link
+                    @click="toLink(scope.row.match_id)"
+                    :underline="false"
+                    v-else
+                    style="color: #ff4c4c"
                     >比赛失败</el-link
                   >
                   <div>{{ getLobbyType(scope.row.lobby_type) }}</div>
@@ -294,6 +303,18 @@ export default {
     this.flag = true; //等搜索的时候再显示骨架
   },
   methods: {
+    //跳转该场比赛
+    toLink(match_id) {
+      //开一个新的网页
+      window.open(`/dotaMatches/${match_id}`);
+      // //跳转
+      // this.$router.push({
+      //   name: "dotaMatche",
+      //   params: {
+      //     id: match_id,
+      //   },
+      // });
+    },
     //计算时间
     computeTime(time) {
       let h = Math.floor(time / 3600);
@@ -359,7 +380,7 @@ export default {
       //隐藏骨架
       setTimeout(() => {
         this.loading = false;
-      }, 2000);
+      }, 1000);
     },
     //获取游玩过的英雄
     async getHeros() {
@@ -390,19 +411,19 @@ export default {
 
 <style lang="scss" scoped>
 .head {
+  min-width: 50%;
   .el-col {
     height: 100px;
   }
   .search {
+    width: 60%;
     line-height: 100px;
   }
   .user {
     display: flex;
     align-items: center;
-
     .name {
       font-size: 2em;
-      margin-left: 30px;
     }
   }
   .image {
@@ -416,9 +437,8 @@ export default {
   .heros {
     display: flex;
     align-items: center;
+    justify-content: center;
     .card {
-      width: 100%;
-      margin-left: 10px;
       .heroCard {
         display: flex;
         align-items: center;

@@ -14,3 +14,8 @@ export const reqUserInfo = (account_id) => request({
     url: `/api/players/${account_id}`,
     method: 'get'
 })
+//该次比赛数据
+export const reqMatchInfo = (match_id) => request({
+    url: `/api/matches/${match_id}`,
+    method: 'get'
+})

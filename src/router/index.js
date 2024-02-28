@@ -25,7 +25,12 @@ const constantRoutes = [
     {
         path: '/dotaQuery',
         name: 'dotaQuery',
-        component: () => import('@/view/dotaQuery/index')
+        component: () => import('@/view/dotaQuery/index'),
+    },
+    {
+        path: '/dotaMatches/:id',
+        name: 'dotaMatches',
+        component: () => import("@/view/dotaMatches/index"),
     },
     {
         path: '/YuGiOh',

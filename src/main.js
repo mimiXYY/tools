@@ -6,7 +6,7 @@ import store from "@/store/index";
 import router from './router'; import {
   Button, Input, Message, Table,
   TableColumn, Container, Header, Aside, Main, Menu, MenuItem, Submenu, Drawer, Select, Option, Avatar, Row, Image,
-  Col, Link, Statistic, Card, Skeleton, SkeletonItem, Switch
+  Col, Link, Statistic, Card, Skeleton, SkeletonItem, Switch,
 } from 'element-ui';
 Vue.component(Button.name, Button);
 Vue.component(Input.name, Input);

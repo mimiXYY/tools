@@ -50,7 +50,7 @@ export default {
   components: { matchesTab },
   data() {
     return {
-      matchesId: 7470469551, //比赛id
+      matchesId: null, //比赛id
       matchesData: [], //比赛数据
       radiantData: [], //天辉数据
       nightgauntData: [], //夜魇数据
@@ -61,7 +61,7 @@ export default {
     };
   },
   beforeMount() {
-    // this.matchesId = this.$route.params.id;
+    this.matchesId = this.$route.params.id;
     this.getMatchesInfo();
   },
   mounted() {},
