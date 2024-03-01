@@ -12,7 +12,13 @@
     "core-js": "^3.8.3",
     "echarts": "^5.4.3",
     "element-ui": "^2.15.14",
-    "vue": "^2.6.14"
+    "howler": "^2.2.4",
+    "lodash": "^4.17.21",
+    "vue": "^2.6.14",
+    "vue-clipboard2": "^0.3.3",
+    "vue-router": "^3.0.6",
+    "vuedraggable": "^2.24.3",
+    "vuex": "^3.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -23,6 +29,8 @@
     "babel-plugin-component": "^1.1.1",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "sass": "^1.71.0",
+    "sass-loader": "^14.1.0",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {

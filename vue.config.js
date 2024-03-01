@@ -1,15 +1,23 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
+  lintOnSave: false,
   devServer: {
     proxy: {
       '/api': {
-        target: `http://192.168.2.10:9000`,
+        target: `https://api.opendota.com`, //openApiDota
+        changeOrigin: true,
+        // pathRewrite: {
+        // '^/api': '' // 重写请求
+        // }
+      },
+      '/v0': {
+        target: `https://ygocdb.com/api`, //游戏王
         changeOrigin: true,
         // pathRewrite: {
         //   '^/api': '' // 重写请求
         // }
-      }
+      },
     },
   },
   productionSourceMap: false

@@ -1,4 +1,6 @@
-import * as score from '@/api/dota/score.js'
+import * as opendota from '@/api/dota/opendota.js'
+import * as card from '@/api/YuGiOh/card.js'
 export default {
-    score
+    card,
+    opendota
 }
