@@ -1,0 +1,10 @@
+[[redirects]]
+  from = "/card-api"
+  to = "https://ygocdb.com"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/list-api"
+  to = "https://api.opendota.com"
+  status = 200
+  force = true
