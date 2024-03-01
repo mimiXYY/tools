@@ -12,7 +12,10 @@
             ></i>
           </div>
         </el-header>
-        <el-main><router-view></router-view></el-main> </el-container
+        <el-main
+          ><keep-alive include="dotaQuery" :max="100"
+            ><router-view></router-view></keep-alive
+        ></el-main> </el-container
     ></el-container>
   </div>
 </template>
@@ -21,7 +24,7 @@
 import sideBar from "@/components/sideBar";
 export default {
   name: "App",
-  components: { sideBar },
+  components: { sideBar, },
   data() {
     return {
       isActive: false,

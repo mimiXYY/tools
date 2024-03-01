@@ -4,19 +4,19 @@ module.exports = defineConfig({
   lintOnSave: false,
   devServer: {
     proxy: {
-      '/api': {
+      '/list-api': {
         target: `https://api.opendota.com`, //openApiDota
         changeOrigin: true,
-        // pathRewrite: {
-        // '^/api': '' // 重写请求
-        // }
+        pathRewrite: {
+          '^/list-api': '' // 重写请求
+        }
       },
-      '/v0': {
-        target: `https://ygocdb.com/api`, //游戏王
+      '/card-api': {
+        target: `https://ygocdb.com`, //游戏王
         changeOrigin: true,
-        // pathRewrite: {
-        //   '^/api': '' // 重写请求
-        // }
+        pathRewrite: {
+          '^/card-api': '' // 重写请求
+        }
       },
     },
   },

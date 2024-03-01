@@ -6,11 +6,13 @@ const actions = {
 }
 const mutations = {
 
+
 }
 const state = {
     heroList: heros,
     gameMode: gameMode,
-    lobbyType: lobbyType
+    lobbyType: lobbyType,
+
 }
 const getters = {
 }

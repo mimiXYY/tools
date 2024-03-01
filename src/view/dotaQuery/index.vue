@@ -302,18 +302,21 @@ export default {
   mounted() {
     this.flag = true; //等搜索的时候再显示骨架
   },
+  beforeDestroy() {
+    console.log("我销毁了");
+  },
   methods: {
     //跳转该场比赛
     toLink(match_id) {
-      //开一个新的网页
-      window.open(`/dotaMatches/${match_id}`);
-      // //跳转
-      // this.$router.push({
-      //   name: "dotaMatche",
-      //   params: {
-      //     id: match_id,
-      //   },
-      // });
+      // //开一个新的网页
+      // window.open(`/dotaMatches/${match_id}`);
+      //跳转
+      this.$router.push({
+        name: "dotaMatches",
+        params: {
+          id: match_id,
+        },
+      });
     },
     //计算时间
     computeTime(time) {
